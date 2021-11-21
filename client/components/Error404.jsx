@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Nav from './Nav'
-
 const Error404 = (props) => {
   return (
     <div className='main-page'>
