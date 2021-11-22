@@ -23,6 +23,7 @@
   { "index": "vowels",     "url": "api/vowels",     "results": [
     { "hangul": "ㅏ", "romanized": "a"   },
     { "hangul": "ㅐ", "romanized": "ae"  },
+    { "hangul": "ㅑ", "romanized": "ya"  },
     { "hangul": "ㅒ", "romanized": "yae" },
     { "hangul": "ㅓ", "romanized": "eo"  },
     { "hangul": "ㅔ", "romanized": "e"   },
@@ -103,5 +104,49 @@
     { "numeral": "100000000",   "native-korean": "",       "nkp": "",            "sino-korean": "일억", "skp": "ireok"     },
     { "numeral": "1000000000",  "native-korean": "",       "nkp": "",            "sino-korean": "십억", "skp": "sibeok"    },
     { "numeral": "10000000000", "native-korean": "",       "nkp": "",            "sino-korean": "백억", "skp": "baegeok"   }
-    ]}
+  ]},
+  { "index": "initial",    "url": "api/initial",    "results": [
+    { "hangul": "ㄱ", "romanized": "giyeok"      },
+    { "hangul": "ㄲ", "romanized": "ssangiyeok"  },
+    { "hangul": "ㄴ", "romanized": "nieun"       },
+    { "hangul": "ㄷ", "romanized": "diguet"      },
+    { "hangul": "ㄸ", "romanized": "ssangdiguet" },
+    { "hangul": "ㄹ", "romanized": "rieul"       },
+    { "hangul": "ㅁ", "romanized": "mieum"       },
+    { "hangul": "ㅂ", "romanized": "bieup"       },
+    { "hangul": "ㅃ", "romanized": "ssangbieup"  },
+    { "hangul": "ㅅ", "romanized": "siot"        },
+    { "hangul": "ㅆ", "romanized": "ssangsiot"   },
+    { "hangul": "ㅇ", "romanized": "ieung"       },
+    { "hangul": "ㅈ", "romanized": "jieut"       },
+    { "hangul": "ㅉ", "romanized": "ssangjieut"  },
+    { "hangul": "ㅊ", "romanized": "chieut"      },
+    { "hangul": "ㅋ", "romanized": "kieuk"       },
+    { "hangul": "ㅌ", "romanized": "tieut"       },
+    { "hangul": "ㅍ", "romanized": "pieup"       },
+    { "hangul": "ㅎ", "romanized": "hieut"       }
+  ]},
+  { "index": "middle",     "url": "api/middle",     "results": [
+    { "hangul": "ㅏ", "romanized": "a"   },
+    { "hangul": "ㅐ", "romanized": "ae"  },
+    { "hangul": "ㅑ", "romanized": "ya"  },
+    { "hangul": "ㅒ", "romanized": "yae" },
+    { "hangul": "ㅓ", "romanized": "eo"  },
+    { "hangul": "ㅔ", "romanized": "e"   },
+    { "hangul": "ㅕ", "romanized": "yeo" },
+    { "hangul": "ㅖ", "romanized": "ye"  },
+    { "hangul": "ㅗ", "romanized": "o"   },
+    { "hangul": "ㅘ", "romanized": "wa"  },
+    { "hangul": "ㅙ", "romanized": "wae" },
+    { "hangul": "ㅚ", "romanized": "oe"  },
+    { "hangul": "ㅛ", "romanized": "yo"  },
+    { "hangul": "ㅜ", "romanized": "u"   },
+    { "hangul": "ㅝ", "romanized": "wo"  },
+    { "hangul": "ㅞ", "romanized": "we"  },
+    { "hangul": "ㅟ", "romanized": "wi"  },
+    { "hangul": "ㅠ", "romanized": "yu"  },
+    { "hangul": "ㅡ", "romanized": "eu"  },
+    { "hangul": "ㅢ", "romanized": "ui"  },
+    { "hangul": "ㅣ", "romanized": "i"   }
+  ]}
 ]}
