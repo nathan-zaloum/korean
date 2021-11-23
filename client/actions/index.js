@@ -1,6 +1,7 @@
 export const SET_CURRENT_WORD = 'SET_CURRENT_WORD'
 export const SET_EXPECTED = 'SET_EXPECTED'
 export const ADD_SCORE = 'ADD_SCORE'
+export const SHIFT = 'SHIFT'
 
 export const setCurrentWord = (word) => {
   return {
@@ -19,5 +20,11 @@ export const setExpected = (char) => {
 export const addScore = () => {
   return {
     type: ADD_SCORE
+  }
+}
+
+export const shift = () => {
+  return {
+    type: SHIFT
   }
 }

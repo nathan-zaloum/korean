@@ -303,13 +303,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "SET_CURRENT_WORD": () => (/* binding */ SET_CURRENT_WORD),
 /* harmony export */   "SET_EXPECTED": () => (/* binding */ SET_EXPECTED),
 /* harmony export */   "ADD_SCORE": () => (/* binding */ ADD_SCORE),
+/* harmony export */   "SHIFT": () => (/* binding */ SHIFT),
 /* harmony export */   "setCurrentWord": () => (/* binding */ setCurrentWord),
 /* harmony export */   "setExpected": () => (/* binding */ setExpected),
-/* harmony export */   "addScore": () => (/* binding */ addScore)
+/* harmony export */   "addScore": () => (/* binding */ addScore),
+/* harmony export */   "shift": () => (/* binding */ shift)
 /* harmony export */ });
 var SET_CURRENT_WORD = 'SET_CURRENT_WORD';
 var SET_EXPECTED = 'SET_EXPECTED';
 var ADD_SCORE = 'ADD_SCORE';
+var SHIFT = 'SHIFT';
 var setCurrentWord = function setCurrentWord(word) {
   return {
     type: SET_CURRENT_WORD,
@@ -325,6 +328,11 @@ var setExpected = function setExpected(_char) {
 var addScore = function addScore() {
   return {
     type: ADD_SCORE
+  };
+};
+var shift = function shift() {
+  return {
+    type: SHIFT
   };
 };
 
@@ -463,29 +471,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions */ "./client/actions/index.js");
+
+
 
 
 
 var Key = function Key(props) {
+  var value = props.value;
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('key'),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
       classValue = _useState2[0],
       setClass = _useState2[1];
 
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    if (props.value === 'shift') {
+    if (value === 'shift') {
       setClass('key shift');
-    } else if (props.value === 'undo') {
+    } else if (value === 'undo') {
       setClass('key undo');
-    } else if (props.value === 'complete block') {
+    } else if (value === 'complete block') {
       setClass('key complete');
-    } else if (props.value === '') {
+    } else if (value === '') {
       setClass('space');
     }
   }, []);
+
+  var shiftCheck = function shiftCheck() {
+    if (value === 'shift') {
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.shift)());
+    }
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    className: classValue
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", null, props.value));
+    className: classValue,
+    onClick: shiftCheck
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
+    className: "key-text"
+  }, value));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Key);
@@ -505,14 +530,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Key__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Key */ "./client/components/Keyboard/Key.jsx");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Key__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Key */ "./client/components/Keyboard/Key.jsx");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
+
 
 
 
 
 
 var Keyboard = function Keyboard() {
+  var shiftState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (globalState) {
+    return globalState.shift;
+  });
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
       _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
       upper = _useState2[0],
@@ -520,13 +551,13 @@ var Keyboard = function Keyboard() {
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
     className: "keyboard-base"
-  }, upper ? _utils__WEBPACK_IMPORTED_MODULE_3__.keyboardLower.map(function (key, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Key__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }, shiftState ? _utils__WEBPACK_IMPORTED_MODULE_4__.keyboardUpper.map(function (key, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Key__WEBPACK_IMPORTED_MODULE_3__.default, {
       key: index,
       value: key
     });
-  }) : _utils__WEBPACK_IMPORTED_MODULE_3__.keyboardUpper.map(function (key, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Key__WEBPACK_IMPORTED_MODULE_2__.default, {
+  }) : _utils__WEBPACK_IMPORTED_MODULE_4__.keyboardLower.map(function (key, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Key__WEBPACK_IMPORTED_MODULE_3__.default, {
       key: index,
       value: key
     });
@@ -602,13 +633,48 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ "./client/reducers/game.js");
+/* harmony import */ var _shift__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shift */ "./client/reducers/shift.js");
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
-  game: _game__WEBPACK_IMPORTED_MODULE_0__.default
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+  game: _game__WEBPACK_IMPORTED_MODULE_0__.default,
+  shift: _shift__WEBPACK_IMPORTED_MODULE_1__.default
 }));
+
+/***/ }),
+
+/***/ "./client/reducers/shift.js":
+/*!**********************************!*\
+  !*** ./client/reducers/shift.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/index */ "./client/actions/index.js");
+
+var initialState = false;
+
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_index__WEBPACK_IMPORTED_MODULE_0__.SHIFT:
+      return !state;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (reducer);
 
 /***/ }),
 

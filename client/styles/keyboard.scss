@@ -33,9 +33,10 @@
   transition: box-shadow 0.3s ease, transform 0.15s ease;
   box-shadow: 0 0 1px #888,0 1px 0 #fff, 0 6px 0 #C0C0C0, 0 8px 17px rgba(#444, 0.4), 2px 1px 4px rgba(#444, 0.25), -2px 1px 4px rgba(#444, 0.25), 0 9px 16px rgba(#444, 0.1);
 
-  font-size: 20px;
   text-align: center;
   cursor: pointer;
+
+  position: relative;
 
   grid-column: span 2;
 
@@ -51,18 +52,18 @@
   }
 }
 
-.shift {
-  grid-column: span 3;
-}
+.shift    { grid-column: span 3;  }
+.undo     { grid-column: span 3;  }
+.complete { grid-column: span 20; }
+.space    { grid-column: span 1;  }
 
-.undo {
-  grid-column: span 3;
-}
+.key-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
-.complete {
-  grid-column: span 20;
-}
-
-.space {
-  grid-column: span 1;
+  font-size: 30px;
+  line-height: 100%;
 }
