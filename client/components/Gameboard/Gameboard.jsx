@@ -9,7 +9,7 @@ const Gameboard = () => {
 
   return (
     <div className='gameboard-base'>
-      <div className='word'>WORD</div>
+      <div className='word'>안녕하세요</div>
     </div>
   )
 }

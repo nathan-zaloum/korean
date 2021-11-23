@@ -420,7 +420,7 @@ var Gameboard = function Gameboard() {
     className: "gameboard-base"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "word"
-  }, "WORD"));
+  }, "\uC548\uB155\uD558\uC138\uC694"));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Gameboard);
