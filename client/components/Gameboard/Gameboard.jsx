@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 import { generateWord } from '../../utils'
 
 const Gameboard = () => {
-  // const [position, setPosition] = useState({})
   const gameState = useSelector(globalState => globalState.game)
 
   return (

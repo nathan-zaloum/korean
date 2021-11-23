@@ -412,7 +412,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Gameboard = function Gameboard() {
-  // const [position, setPosition] = useState({})
   var gameState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (globalState) {
     return globalState.game;
   });
