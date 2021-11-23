@@ -9,7 +9,7 @@ const reducer = (state = initialState, action) => {
     case SET_EXPECTED:
       return { currentWord: state.currentWord, expected: action.char, score: state.score }
     case ADD_SCORE:
-      return { currentWord: state.currentWord, expected: state.expected, score: state.score++ }
+      return { currentWord: state.currentWord, expected: state.expected, score: (state.score += 1) }
     default:
       return state
   }
