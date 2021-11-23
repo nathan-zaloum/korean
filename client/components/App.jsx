@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import Error404 from './Error404'
 import Home from './Home'
+import Gameboard from './Gameboard/Gameboard'
 import Keyboard from './Keyboard/Keyboard'
 
 const App = () => {
@@ -10,7 +11,7 @@ const App = () => {
     <>
         <Routes>
           <Route path='*' element={<Error404 />} />
-          <Route exact path='/' element={<Home />} />
+          <Route exact path='/' element={<Gameboard />} />
         </Routes>
         <Keyboard />
     </>

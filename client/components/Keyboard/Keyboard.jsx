@@ -9,7 +9,7 @@ const Keyboard = () => {
 
   return (
     <div className='keyboard-base'>
-      {upper ? keyboardLower.map(key => { return <Key value={key}/> }) : keyboardUpper.map(key => { return <Key value={key}/> })}
+      {upper ? keyboardLower.map((key, index) => { return <Key key={index} value={key}/> }) : keyboardUpper.map((key, index) => { return <Key key={index} value={key}/> })}
     </div>
   )
 }
