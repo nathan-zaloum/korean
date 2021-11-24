@@ -1,18 +1,18 @@
 {
-  "name": "dnd",
+  "name": "korean",
   "version": "1.0.0",
-  "description": "A DnD personal project",
-  "homepage": "https://github.com/nathan-zaloum/dnd#readme",
+  "description": "A personal project to teach me Hangul",
+  "homepage": "https://github.com/nathan-zaloum/korean#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nathan-zaloum/dnd.git"
+    "url": "git+https://github.com/nathan-zaloum/korean.git"
   },
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nathan-zaloum/dnd/issues"
+    "url": "https://github.com/nathan-zaloum/korean/issues"
   },
   "scripts": {
     "client": "webpack serve --config ./client/webpack.config.js --hot",

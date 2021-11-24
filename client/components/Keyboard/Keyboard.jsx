@@ -7,7 +7,6 @@ import { keyboardLower, keyboardUpper } from '../../utils'
 
 const Keyboard = () => {
   const shiftState = useSelector(globalState => globalState.shift)
-  const [upper, setUpper] = useState(false)
 
   return (
     <div className='keyboard-base'>

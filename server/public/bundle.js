@@ -528,36 +528,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _Key__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Key */ "./client/components/Keyboard/Key.jsx");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
-
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Key__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Key */ "./client/components/Keyboard/Key.jsx");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
 
 
 
 
 
 var Keyboard = function Keyboard() {
-  var shiftState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (globalState) {
+  var shiftState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (globalState) {
     return globalState.shift;
   });
-
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
-      upper = _useState2[0],
-      setUpper = _useState2[1];
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "keyboard-base"
-  }, shiftState ? _utils__WEBPACK_IMPORTED_MODULE_4__.keyboardUpper.map(function (key, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Key__WEBPACK_IMPORTED_MODULE_3__.default, {
+  }, shiftState ? _utils__WEBPACK_IMPORTED_MODULE_3__.keyboardUpper.map(function (key, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Key__WEBPACK_IMPORTED_MODULE_2__.default, {
       key: index,
       value: key
     });
-  }) : _utils__WEBPACK_IMPORTED_MODULE_4__.keyboardLower.map(function (key, index) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_Key__WEBPACK_IMPORTED_MODULE_3__.default, {
+  }) : _utils__WEBPACK_IMPORTED_MODULE_3__.keyboardLower.map(function (key, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Key__WEBPACK_IMPORTED_MODULE_2__.default, {
       key: index,
       value: key
     });
@@ -693,7 +685,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "keyboardUpper": () => (/* binding */ keyboardUpper),
 /* harmony export */   "wordArray": () => (/* binding */ wordArray),
 /* harmony export */   "checkInput": () => (/* binding */ checkInput),
-/* harmony export */   "randomWord": () => (/* binding */ randomWord)
+/* harmony export */   "randomWord": () => (/* binding */ randomWord),
+/* harmony export */   "charType": () => (/* binding */ charType)
 /* harmony export */ });
 var consonantsArr = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
 var vowelsArr = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
@@ -788,12 +781,19 @@ var checkConsonant = function checkConsonant(_char2) {
 // check if the block contains a double vowel
 // check if the block contains a double consonant after vowels
 // GENERATE RANDOM WORD
-// pick a random word from wordArray
+// pick a random word object from wordArray
 
 
 var randomWord = function randomWord() {
   var word = wordArray[Math.floor(Math.random() * wordArray.length)];
   return word;
+};
+var charType = function charType(_char3) {
+  if (consonantsArr.includes(_char3)) {
+    return 'consonant';
+  } else {
+    return 'vowel';
+  }
 };
 
 /***/ }),
