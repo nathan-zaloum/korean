@@ -610,7 +610,7 @@ var reducer = function reducer() {
       return {
         currentWord: state.currentWord,
         expected: state.expected,
-        score: state.score++
+        score: state.score += 1
       };
 
     default:
@@ -691,7 +691,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "vowelsArr": () => (/* binding */ vowelsArr),
 /* harmony export */   "keyboardLower": () => (/* binding */ keyboardLower),
 /* harmony export */   "keyboardUpper": () => (/* binding */ keyboardUpper),
-/* harmony export */   "checkInput": () => (/* binding */ checkInput)
+/* harmony export */   "wordArray": () => (/* binding */ wordArray),
+/* harmony export */   "checkInput": () => (/* binding */ checkInput),
+/* harmony export */   "randomWord": () => (/* binding */ randomWord)
 /* harmony export */ });
 var consonantsArr = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
 var vowelsArr = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
@@ -787,6 +789,12 @@ var checkConsonant = function checkConsonant(_char2) {
 // check if the block contains a double consonant after vowels
 // GENERATE RANDOM WORD
 // pick a random word from wordArray
+
+
+var randomWord = function randomWord() {
+  var word = wordArray[Math.floor(Math.random() * wordArray.length)];
+  return word;
+};
 
 /***/ }),
 

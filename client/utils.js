@@ -3,7 +3,7 @@ export const vowelsArr = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ'
 export const keyboardLower = ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block']
 export const keyboardUpper = ['ㅃ', 'ㅉ', 'ㄸ', 'ㄲ', 'ㅆ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅒ', 'ㅖ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block']
 
-const wordArray = [
+export const wordArray = [
   { word: '안녕하세요', blocks: [ // annyeonghaseyo (hello)
     { block: '안', characters: ['ㅇ', 'ㅏ', 'ㄴ'] },
     { block: '녕', characters: ['ㄴ', 'ㅕ', 'ㅇ'] },
@@ -67,4 +67,16 @@ const checkConsonant = (char) => {
 
 // GENERATE RANDOM WORD
 
-// pick a random word from wordArray
+// pick a random word object from wordArray
+export const randomWord = () => {
+  const word = wordArray[Math.floor(Math.random() * wordArray.length)]
+  return word
+}
+
+export const charType = (char) => {
+  if (consonantsArr.includes(char)) {
+    return 'consonant'
+  } else {
+    return 'vowel'
+  }
+}
