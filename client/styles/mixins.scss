@@ -1,0 +1,12 @@
+$breakpoints: (
+  tablet: 600px,
+  laptop: 1240px,
+  desktop: 1400px
+);
+
+@mixin media-queries($breakpoint) {
+  $breakpoint-value: map-get($breakpoints, $breakpoint);
+  @media screen and (min-width: $breakpoint-value) {
+    @content;
+  }
+}
