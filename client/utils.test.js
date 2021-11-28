@@ -1,4 +1,4 @@
-import { wordArray, randomWord, charType, disassemble, assemble } from './utils'
+import { wordArray, randomWord, charType, disassemble, assemble, vowelType } from './utils'
 
 describe('Character check tests', () => {
   test.todo('checks the first input character is a consonant')
@@ -31,6 +31,18 @@ describe('Utils.js function tests', () => {
     }
     expect(actual.consonant).toEqual(expected.consonant)
     expect(actual.vowel).toEqual(actual.vowel)
+  })
+  test('vowelType checks if the character is a short vowel or a tall vowel', () => {
+    const expected = {
+      short: 'short',
+      tall: 'tall'
+    }
+    const actual = {
+      short: vowelType('ㅔ'),
+      tall: vowelType('ㅜ')
+    }
+    expect(actual.short).toEqual(expected.short)
+    expect(actual.tall).toEqual(actual.tall)
   })
   test('disassemble returns an array of individuals letters', () => {
     const expected = ['ㅇ', 'ㅏ', 'ㄴ', 'ㄴ', 'ㅕ', 'ㅇ', 'ㅎ', 'ㅏ', 'ㅅ', 'ㅔ', 'ㅇ', 'ㅛ']

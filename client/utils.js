@@ -2,29 +2,25 @@ const Hangul = require('hangul-js')
 
 export const consonantsArr = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
 export const vowelsArr = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ']
+export const vowelShort = ['ㅏ', 'ㅑ', 'ㅐ', 'ㅒ', 'ㅓ', 'ㅕ', 'ㅔ', 'ㅖ', 'ㅣ']
+export const vowelTall = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ']
 export const keyboardLower = ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block']
 export const keyboardUpper = ['ㅃ', 'ㅉ', 'ㄸ', 'ㄲ', 'ㅆ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅒ', 'ㅖ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block']
 
 export const wordArray = [
-  { word: '안녕하세요', blocks: [ // annyeonghaseyo (hello)
-    { block: '안', characters: ['ㅇ', 'ㅏ', 'ㄴ'] },
-    { block: '녕', characters: ['ㄴ', 'ㅕ', 'ㅇ'] },
-    { block: '하', characters: ['ㅎ', 'ㅏ'] },
-    { block: '세', characters: ['ㅅ', 'ㅔ'] },
-    { block: '요', characters: ['ㅇ', 'ㅛ'] }
-  ]},
-  { word: '주세요', blocks: [ // juseyo (please)
-    { block: '주', characters: ['ㅈ', 'ㅜ'] },
-    { block: '세', characters: ['ㅅ', 'ㅔ'] },
-    { block: '요', characters: ['ㅇ', 'ㅛ'] }
-  ]},
-  { word: '죄송합니다', blocks: [ // joesonghamnida (sorry)
-    { block: '죄', characters: ['ㅈ', 'ㅗ', 'ㅣ'] },
-    { block: '송', characters: ['ㅅ', 'ㅗ', 'ㅇ'] },
-    { block: '합', characters: ['ㅎ', 'ㅏ', 'ㅂ'] },
-    { block: '니', characters: ['ㄴ', 'ㅣ'] },
-    { block: '다', characters: ['ㄷ', 'ㅏ'] }
-  ]}
+  { english: 'yes',          romanized: 'ne',             hangul: '네'         },
+  { english: 'yes',          romanized: 'ye',             hangul: '예'         },
+  { english: 'no',           romanized: 'aniyo',          hangul: '아니오'      },
+  { english: 'ok',           romanized: 'gwaenchanayo',   hangul: '괜찮아요'     },
+  { english: 'hello',        romanized: 'annyeonghaseyo', hangul: '안녕하세요'   },
+  { english: 'please',       romanized: 'juseyo',         hangul: '주세요'      },
+  { english: 'thank you',    romanized: 'gamsahamnida',   hangul: '감사합니다' },
+  { english: 'thank you',    romanized: 'gomawoyo',       hangul: '고마워요'     },
+  { english: 'your welcome', romanized: 'cheonmaneyo',    hangul: '천만에요'     },
+  { english: 'excuse me',    romanized: 'sillyehamnida',  hangul: '실례합니다'   },
+  { english: 'sorry',        romanized: 'joesonghamnida', hangul: '죄송합니다'   },
+  { english: 'sorry',        romanized: 'mianhamnida',    hangul: '미안합니다'   },
+  { english: 'sorry',        romanized: 'mianhe',         hangul: '미안해'      }
 ]
 
 export const checkInput = (char, blockArr) => {
@@ -67,12 +63,10 @@ const checkConsonant = (char) => {
 // check if the block contains a double vowel
 // check if the block contains a double consonant after vowels
 
-// GENERATE RANDOM WORD
 
-// pick a random word object from wordArray
+
 export const randomWord = () => {
-  const word = wordArray[Math.floor(Math.random() * wordArray.length)]
-  return word
+  return wordArray[Math.floor(Math.random() * wordArray.length)]
 }
 
 export const charType = (char) => {
@@ -80,6 +74,14 @@ export const charType = (char) => {
     return 'consonant'
   } else {
     return 'vowel'
+  }
+}
+
+export const vowelType = (char) => {
+  if (vowelShort.includes(char)) {
+    return 'short'
+  } else {
+    return 'tall'
   }
 }
 

@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { generateWord } from '../../utils'
+import { randomWord } from '../../utils'
 
 const Gameboard = () => {
   const gameState = useSelector(globalState => globalState.game)
+  const word = randomWord()
 
   return (
     <div className='gameboard-base'>
-      <div className='word'>안녕하세요</div>
+      <div className='word'>{word.hangul}</div>
     </div>
   )
 }

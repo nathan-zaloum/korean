@@ -27,6 +27,7 @@ const Key = (props) => {
   }
 
   return (
+    // onClick = onkeypress for keyboard
     <div className={classValue} onClick={shiftCheck}>
       <p className='key-text'>{value}</p>
     </div>
