@@ -1,3 +1,5 @@
+const Hangul = require('hangul-js')
+
 export const consonantsArr = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
 export const vowelsArr = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ']
 export const keyboardLower = ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block']
@@ -79,4 +81,12 @@ export const charType = (char) => {
   } else {
     return 'vowel'
   }
+}
+
+export const disassemble = (input) => {
+  return Hangul.disassemble(input)
+}
+
+export const assemble = (input) => {
+  return Hangul.assemble(input)
 }

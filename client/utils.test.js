@@ -1,4 +1,4 @@
-import { wordArray, randomWord, charType } from './utils'
+import { wordArray, randomWord, charType, disassemble, assemble } from './utils'
 
 describe('Character check tests', () => {
   test.todo('checks the first input character is a consonant')
@@ -31,5 +31,17 @@ describe('Utils.js function tests', () => {
     }
     expect(actual.consonant).toEqual(expected.consonant)
     expect(actual.vowel).toEqual(actual.vowel)
+  })
+  test('disassemble returns an array of individuals letters', () => {
+    const expected = ['ㅇ', 'ㅏ', 'ㄴ', 'ㄴ', 'ㅕ', 'ㅇ', 'ㅎ', 'ㅏ', 'ㅅ', 'ㅔ', 'ㅇ', 'ㅛ']
+    const input = '안녕하세요'
+    const actual = disassemble(input)
+    expect(expected).toEqual(actual)
+  })
+  test('assemble returns a string of blocks', () => {
+    const expected = '안녕하세요'
+    const input = ['ㅇ', 'ㅏ', 'ㄴ', 'ㄴ', 'ㅕ', 'ㅇ', 'ㅎ', 'ㅏ', 'ㅅ', 'ㅔ', 'ㅇ', 'ㅛ']
+    const actual = assemble(input)
+    expect(expected).toEqual(actual)
   })
 })
