@@ -2,7 +2,6 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Error404 from './Error404'
-import Home from './Home'
 import Gameboard from './Gameboard/Gameboard'
 import Keyboard from './Keyboard/Keyboard'
 

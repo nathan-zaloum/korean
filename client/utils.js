@@ -55,24 +55,6 @@ export const compareBlock = (input, compare) => {
   }
 }
 
-// const [block, setBlock] = useState([])
-
-// VALID CHARACTER CHECKS
-
-// check if the first is consonant
-// check if the second is vowel
-// check if there is at most 2 vowels in a row
-// check if there is at most 2 consonants in a row after vowels
-// check if there is at most 5 characters in the block
-
-// BLOCK STRUCTURE RULES
-
-// check if the first vowel is short or tall
-// check if the block contains a double vowel
-// check if the block contains a double consonant after vowels
-
-
-
 export const randomWord = (arr = wordArray) => {
   return arr[Math.floor(Math.random() * wordArray.length)]
 }
