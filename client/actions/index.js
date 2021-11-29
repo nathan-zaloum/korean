@@ -4,6 +4,7 @@ export const SET_CURRENT_INPUT = 'SET_CURRENT_INPUT'
 export const ADD_SCORE = 'ADD_SCORE'
 export const SET_NEW_WORD = 'SET_NEW_WORD'
 export const SHIFT = 'SHIFT'
+export const SET_MESSAGE = 'SET_MESSAGE'
 
 export const setCurrentWord = (word) => {
   return {
@@ -42,5 +43,12 @@ export const setNewWord = (word) => {
 export const shift = () => {
   return {
     type: SHIFT
+  }
+}
+
+export const setMessage = (content) => {
+  return {
+    type: SET_MESSAGE,
+    content
   }
 }

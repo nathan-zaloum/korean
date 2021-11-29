@@ -13,7 +13,7 @@ const reducer = (state = initialState, action) => {
     case ADD_SCORE:
       return { ...state, score: (state.score += 1) }
     case SET_NEW_WORD:
-      return { ...initialState, currentWord: action.word, currentBlock: action.word.hangul.charAt(0), currentInput: [] }
+      return { currentWord: action.word, currentBlock: action.word.hangul.charAt(0), blockIndex: 0, currentInput: [], score: state.score }
     default:
       return state
   }

@@ -306,12 +306,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ADD_SCORE": () => (/* binding */ ADD_SCORE),
 /* harmony export */   "SET_NEW_WORD": () => (/* binding */ SET_NEW_WORD),
 /* harmony export */   "SHIFT": () => (/* binding */ SHIFT),
+/* harmony export */   "SET_MESSAGE": () => (/* binding */ SET_MESSAGE),
 /* harmony export */   "setCurrentWord": () => (/* binding */ setCurrentWord),
 /* harmony export */   "setBlockIndex": () => (/* binding */ setBlockIndex),
 /* harmony export */   "setCurrentInput": () => (/* binding */ setCurrentInput),
 /* harmony export */   "addScore": () => (/* binding */ addScore),
 /* harmony export */   "setNewWord": () => (/* binding */ setNewWord),
-/* harmony export */   "shift": () => (/* binding */ shift)
+/* harmony export */   "shift": () => (/* binding */ shift),
+/* harmony export */   "setMessage": () => (/* binding */ setMessage)
 /* harmony export */ });
 var SET_CURRENT_WORD = 'SET_CURRENT_WORD';
 var SET_BLOCK_INDEX = 'SET_BLOCK_INDEX';
@@ -319,6 +321,7 @@ var SET_CURRENT_INPUT = 'SET_CURRENT_INPUT';
 var ADD_SCORE = 'ADD_SCORE';
 var SET_NEW_WORD = 'SET_NEW_WORD';
 var SHIFT = 'SHIFT';
+var SET_MESSAGE = 'SET_MESSAGE';
 var setCurrentWord = function setCurrentWord(word) {
   return {
     type: SET_CURRENT_WORD,
@@ -351,6 +354,12 @@ var setNewWord = function setNewWord(word) {
 var shift = function shift() {
   return {
     type: SHIFT
+  };
+};
+var setMessage = function setMessage(content) {
+  return {
+    type: SET_MESSAGE,
+    content: content
   };
 };
 
@@ -452,7 +461,7 @@ var Block = function Block(props) {
 
   var checkStyle = function checkStyle() {
     if (gameState.blockIndex >= index) {
-      gameState.blockIndex === index ? setBlockColor('yellow') : setBlockColor('green');
+      gameState.blockIndex === index ? setBlockColor('yellow') : setBlockColor('aquamarine');
     } else {
       setBlockColor('white');
     }
@@ -500,6 +509,9 @@ var Gameboard = function Gameboard() {
   var gameState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (globalState) {
     return globalState.game;
   });
+  var messageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (globalState) {
+    return globalState.message;
+  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var newWord = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.randomWord)();
@@ -518,7 +530,9 @@ var Gameboard = function Gameboard() {
     });
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "current"
-  }, gameState.currentInput));
+  }, gameState.currentInput), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "message"
+  }, messageState));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Gameboard);
@@ -633,7 +647,10 @@ var Key = function Key(props) {
             dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1));
           }
         } else {
-          console.log('wrong');
+          dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setMessage)('Try again!'));
+          setTimeout(function () {
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setMessage)(''));
+          }, 3000);
         }
 
         break;
@@ -763,11 +780,13 @@ var reducer = function reducer() {
       });
 
     case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_NEW_WORD:
-      return _objectSpread(_objectSpread({}, initialState), {}, {
+      return {
         currentWord: action.word,
         currentBlock: action.word.hangul.charAt(0),
-        currentInput: []
-      });
+        blockIndex: 0,
+        currentInput: [],
+        score: state.score
+      };
 
     default:
       return state;
@@ -789,16 +808,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ "./client/reducers/game.js");
 /* harmony import */ var _shift__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shift */ "./client/reducers/shift.js");
+/* harmony import */ var _message__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./message */ "./client/reducers/message.js");
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
   game: _game__WEBPACK_IMPORTED_MODULE_0__.default,
-  shift: _shift__WEBPACK_IMPORTED_MODULE_1__.default
+  shift: _shift__WEBPACK_IMPORTED_MODULE_1__.default,
+  message: _message__WEBPACK_IMPORTED_MODULE_2__.default
 }));
+
+/***/ }),
+
+/***/ "./client/reducers/message.js":
+/*!************************************!*\
+  !*** ./client/reducers/message.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/index */ "./client/actions/index.js");
+
+var initialState = '';
+
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_index__WEBPACK_IMPORTED_MODULE_0__.SET_MESSAGE:
+      return action.content;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (reducer);
 
 /***/ }),
 

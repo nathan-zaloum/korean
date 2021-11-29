@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { shift, setCurrentInput, setBlockIndex, setNewWord, addScore } from '../../actions'
+import { shift, setCurrentInput, setBlockIndex, setNewWord, addScore, setMessage } from '../../actions'
 import { compareBlock, randomWord } from '../../utils'
 
 const Key = (props) => {
@@ -37,7 +37,8 @@ const Key = (props) => {
           dispatch(setBlockIndex(gameState.blockIndex += 1))
         }
       } else {
-        console.log('wrong')
+        dispatch(setMessage('Try again!'))
+        setTimeout(() => { dispatch(setMessage('')) }, 3000)
       } break
     }
 

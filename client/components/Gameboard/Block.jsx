@@ -8,7 +8,7 @@ const Block = (props) => {
 
   const checkStyle = () => {
     if (gameState.blockIndex >= index) {
-      gameState.blockIndex === index ? setBlockColor('yellow') : setBlockColor('green')
+      gameState.blockIndex === index ? setBlockColor('yellow') : setBlockColor('aquamarine')
     } else {
       setBlockColor('white')
     }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setBlockIndex, setCurrentWord } from '../../actions'
@@ -8,6 +8,7 @@ import Block from './Block'
 
 const Gameboard = () => {
   const gameState = useSelector(globalState => globalState.game)
+  const messageState = useSelector(globalState => globalState.message)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -24,6 +25,7 @@ const Gameboard = () => {
         ))
       }</div>
       <div className='current'>{ gameState.currentInput }</div>
+      <div className='message'>{ messageState }</div>
     </div>
   )
 }

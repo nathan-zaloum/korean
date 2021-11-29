@@ -1,4 +1,4 @@
-import { setCurrentWord, setBlockIndex, setCurrentInput, addScore, setNewWord, shift } from './index'
+import { setCurrentWord, setBlockIndex, setCurrentInput, addScore, setNewWord, shift, setMessage } from './index'
 
 describe('Action tests', () => {
   test('setCurrentWord action creator works', () => {
@@ -45,6 +45,14 @@ describe('Action tests', () => {
       type: 'SHIFT'
     }
     const actual = shift()
+    expect(actual).toEqual(expected)
+  })
+  test('setMessage action creator works', () => {
+    const expected = {
+      type: 'SET_MESSAGE',
+      content: 'Test'
+    }
+    const actual = setMessage('Test')
     expect(actual).toEqual(expected)
   })
 })
