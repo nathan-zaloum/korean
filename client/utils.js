@@ -73,8 +73,8 @@ export const compareBlock = (input, compare) => {
 
 
 
-export const randomWord = () => {
-  return wordArray[Math.floor(Math.random() * wordArray.length)]
+export const randomWord = (arr = wordArray) => {
+  return arr[Math.floor(Math.random() * wordArray.length)]
 }
 
 export const charType = (char) => {

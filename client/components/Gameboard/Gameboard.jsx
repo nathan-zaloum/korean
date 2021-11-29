@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setBlockIndex, setCurrentWord } from '../../actions'
-import { randomWord, stringToArray } from '../../utils'
+import { randomWord, stringToArray, wordArray } from '../../utils'
 
 import Block from './Block'
 

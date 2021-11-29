@@ -639,7 +639,11 @@ var Key = function Key(props) {
         if ((0,_utils__WEBPACK_IMPORTED_MODULE_4__.compareBlock)(gameState.currentInput, gameState.currentBlock)) {
           if (gameState.currentWord.hangul.length === gameState.blockIndex + 1) {
             // Word is complete
-            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setNewWord)((0,_utils__WEBPACK_IMPORTED_MODULE_4__.randomWord)()));
+            var _newArr = _utils__WEBPACK_IMPORTED_MODULE_4__.wordArray.filter(function (word) {
+              return word !== gameState.currentWord;
+            });
+
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setNewWord)((0,_utils__WEBPACK_IMPORTED_MODULE_4__.randomWord)(_newArr)));
             dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.addScore)());
           } else {
             // Word is incomplete
@@ -650,7 +654,7 @@ var Key = function Key(props) {
           dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setMessage)('Try again!'));
           setTimeout(function () {
             dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setMessage)(''));
-          }, 3000);
+          }, 2000);
         }
 
         break;
@@ -658,11 +662,11 @@ var Key = function Key(props) {
 
 
     if (classValue === 'key') {
-      var _newArr = gameState.currentInput;
+      var _newArr2 = gameState.currentInput;
 
-      _newArr.push(value);
+      _newArr2.push(value);
 
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)(_newArr));
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)(_newArr2));
     }
   };
 
@@ -1020,7 +1024,8 @@ var compareBlock = function compareBlock(input, compare) {
 // check if the block contains a double consonant after vowels
 
 var randomWord = function randomWord() {
-  return wordArray[Math.floor(Math.random() * wordArray.length)];
+  var arr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : wordArray;
+  return arr[Math.floor(Math.random() * wordArray.length)];
 };
 var charType = function charType(_char3) {
   if (consonantsArr.includes(_char3)) {

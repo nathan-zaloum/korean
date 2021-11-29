@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { shift, setCurrentInput, setBlockIndex, setNewWord, addScore, setMessage } from '../../actions'
-import { compareBlock, randomWord } from '../../utils'
+import { compareBlock, randomWord, wordArray } from '../../utils'
 
 const Key = (props) => {
   const { value } = props
@@ -29,7 +29,8 @@ const Key = (props) => {
       case 'complete block': if (compareBlock(gameState.currentInput, gameState.currentBlock)) {
         if (gameState.currentWord.hangul.length === gameState.blockIndex + 1) {
           // Word is complete
-          dispatch(setNewWord(randomWord()))
+          let newArr = wordArray.filter(word => { return word !== gameState.currentWord })
+          dispatch(setNewWord(randomWord(newArr)))
           dispatch(addScore())
         } else {
           // Word is incomplete
@@ -38,7 +39,7 @@ const Key = (props) => {
         }
       } else {
         dispatch(setMessage('Try again!'))
-        setTimeout(() => { dispatch(setMessage('')) }, 3000)
+        setTimeout(() => { dispatch(setMessage('')) }, 2000)
       } break
     }
 
