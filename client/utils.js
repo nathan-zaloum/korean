@@ -20,7 +20,8 @@ export const wordArray = [
   { english: 'excuse me',    romanized: 'sillyehamnida',  hangul: '실례합니다'   },
   { english: 'sorry',        romanized: 'joesonghamnida', hangul: '죄송합니다'   },
   { english: 'sorry',        romanized: 'mianhamnida',    hangul: '미안합니다'   },
-  { english: 'sorry',        romanized: 'mianhe',         hangul: '미안해'      }
+  { english: 'sorry',        romanized: 'mianhe',         hangul: '미안해'      },
+  { english: 'this week on Wednesday', romanized: 'ibeon jju suyoil', hangul: '이번 주 수요일'}
 ]
 
 export const checkInput = (char, blockArr) => {

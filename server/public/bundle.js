@@ -622,7 +622,13 @@ var Key = function Key(props) {
           } else {
             // Word is incomplete
             dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)([]));
-            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1));
+
+            if (gameState.currentWord.hangul.charAt(gameState.blockIndex + 1) === ' ') {
+              // If next block is a space, move to the next block
+              dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 2));
+            } else {
+              dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1));
+            }
           }
         } else {
           dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setMessage)('Try again!'));
@@ -951,6 +957,10 @@ var wordArray = [{
   english: 'sorry',
   romanized: 'mianhe',
   hangul: '미안해'
+}, {
+  english: 'this week on Wednesday',
+  romanized: 'ibeon jju suyoil',
+  hangul: '이번 주 수요일'
 }];
 var checkInput = function checkInput(_char, blockArr) {
   switch (blockArr.length) {

@@ -35,7 +35,12 @@ const Key = (props) => {
         } else {
           // Word is incomplete
           dispatch(setCurrentInput([]))
-          dispatch(setBlockIndex(gameState.blockIndex += 1))
+          if (gameState.currentWord.hangul.charAt(gameState.blockIndex + 1) === ' ') {
+            // If next block is a space, move to the next block
+            dispatch(setBlockIndex(gameState.blockIndex += 2))
+          } else {
+            dispatch(setBlockIndex(gameState.blockIndex += 1))
+          }
         }
       } else {
         dispatch(setMessage('Try again!'))

@@ -27,7 +27,7 @@
 }
 
 .current {
-  color: white;
+  color: $block-current;
 
   position: absolute;
   top: 10;
@@ -42,7 +42,7 @@
 }
 
 .message {
-  color: crimson;
+  color: $message;
 
   position: absolute;
   top: 10;
