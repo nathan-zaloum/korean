@@ -16,9 +16,8 @@ describe('Block layout tests', () => {
 
 describe('Utils.js function tests', () => {
   test('randomWord returns a word from wordArray', () => {
-    const expected = wordArray
     const actual = randomWord()
-    expect(expected).toContain(actual)
+    expect(wordArray).toContain(actual)
   })
   test('charType checks if the character is a consonant or a vowel', () => {
     const expected = {

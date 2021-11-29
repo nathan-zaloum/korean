@@ -47,6 +47,14 @@ const checkConsonant = (char) => {
   }
 }
 
+export const compareBlock = (input, compare) => {
+  if (assemble(input) === compare) {
+    return true
+  } else {
+    return false
+  }
+}
+
 // const [block, setBlock] = useState([])
 
 // VALID CHARACTER CHECKS

@@ -301,16 +301,22 @@ function _unsupportedIterableToArray(o, minLen) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_CURRENT_WORD": () => (/* binding */ SET_CURRENT_WORD),
-/* harmony export */   "SET_EXPECTED": () => (/* binding */ SET_EXPECTED),
+/* harmony export */   "SET_CURRENT_BLOCK": () => (/* binding */ SET_CURRENT_BLOCK),
+/* harmony export */   "SET_BLOCK_INDEX": () => (/* binding */ SET_BLOCK_INDEX),
+/* harmony export */   "SET_CURRENT_INPUT": () => (/* binding */ SET_CURRENT_INPUT),
 /* harmony export */   "ADD_SCORE": () => (/* binding */ ADD_SCORE),
 /* harmony export */   "SHIFT": () => (/* binding */ SHIFT),
 /* harmony export */   "setCurrentWord": () => (/* binding */ setCurrentWord),
-/* harmony export */   "setExpected": () => (/* binding */ setExpected),
+/* harmony export */   "setCurrentBlock": () => (/* binding */ setCurrentBlock),
+/* harmony export */   "setBlockIndex": () => (/* binding */ setBlockIndex),
+/* harmony export */   "setCurrentInput": () => (/* binding */ setCurrentInput),
 /* harmony export */   "addScore": () => (/* binding */ addScore),
 /* harmony export */   "shift": () => (/* binding */ shift)
 /* harmony export */ });
 var SET_CURRENT_WORD = 'SET_CURRENT_WORD';
-var SET_EXPECTED = 'SET_EXPECTED';
+var SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
+var SET_BLOCK_INDEX = 'SET_BLOCK_INDEX';
+var SET_CURRENT_INPUT = 'SET_CURRENT_INPUT';
 var ADD_SCORE = 'ADD_SCORE';
 var SHIFT = 'SHIFT';
 var setCurrentWord = function setCurrentWord(word) {
@@ -319,10 +325,22 @@ var setCurrentWord = function setCurrentWord(word) {
     word: word
   };
 };
-var setExpected = function setExpected(_char) {
+var setCurrentBlock = function setCurrentBlock(_char) {
   return {
-    type: SET_EXPECTED,
+    type: SET_CURRENT_BLOCK,
     "char": _char
+  };
+};
+var setBlockIndex = function setBlockIndex(index) {
+  return {
+    type: SET_BLOCK_INDEX,
+    index: index
+  };
+};
+var setCurrentInput = function setCurrentInput(array) {
+  return {
+    type: SET_CURRENT_INPUT,
+    array: array
   };
 };
 var addScore = function addScore() {
@@ -414,7 +432,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./client/actions/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
+
 
 
 
@@ -423,12 +443,19 @@ var Gameboard = function Gameboard() {
   var gameState = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (globalState) {
     return globalState.game;
   });
-  var word = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.randomWord)();
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var newWord = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.randomWord)();
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.setCurrentWord)(newWord));
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.setCurrentBlock)(newWord.hangul.charAt(0)));
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "gameboard-base"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "word"
-  }, word.hangul));
+  }, gameState.currentWord.hangul), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "current"
+  }, gameState.currentInput));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Gameboard);
@@ -474,6 +501,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions */ "./client/actions/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
+
 
 
 
@@ -487,22 +516,67 @@ var Key = function Key(props) {
       classValue = _useState2[0],
       setClass = _useState2[1];
 
+  var gameState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (globalState) {
+    return globalState.game;
+  });
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    if (value === 'shift') {
-      setClass('key shift');
-    } else if (value === 'undo') {
-      setClass('key undo');
-    } else if (value === 'complete block') {
-      setClass('key complete');
-    } else if (value === '') {
-      setClass('space');
+    // Set styling for keys depending on their value
+    switch (value) {
+      case 'shift':
+        setClass('key shift');
+        break;
+
+      case 'undo':
+        setClass('key undo');
+        break;
+
+      case 'complete block':
+        setClass('key complete');
+        break;
+
+      case '':
+        setClass('space');
+        break;
+
+      default:
+        setClass('key');
+        break;
     }
   }, []);
 
-  var shiftCheck = function shiftCheck() {
-    if (value === 'shift') {
-      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.shift)());
+  var clickCheck = function clickCheck() {
+    // Check for unique key presses
+    switch (value) {
+      case 'shift':
+        dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.shift)());
+        break;
+
+      case 'undo':
+        var newArr = gameState.currentInput;
+        newArr.splice(-1);
+        dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)(newArr));
+        break;
+
+      case 'complete block':
+        if ((0,_utils__WEBPACK_IMPORTED_MODULE_4__.compareBlock)(gameState.currentInput, gameState.currentBlock)) {
+          console.log('correct');
+          dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)([]));
+          dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1)); // Give user feedback that they were right
+        } else {
+          console.log('wrong'); // Give user feedback that they were wrong
+        }
+
+        break;
+    } // Check for normal key presses
+
+
+    if (classValue === 'key') {
+      var _newArr = gameState.currentInput;
+
+      _newArr.push(value);
+
+      dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)(_newArr));
     }
   };
 
@@ -511,7 +585,7 @@ var Key = function Key(props) {
     // onClick = onkeypress for keyboard
     react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
       className: classValue,
-      onClick: shiftCheck
+      onClick: clickCheck
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("p", {
       className: "key-text"
     }, value))
@@ -576,11 +650,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _actions_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/index */ "./client/actions/index.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _actions_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/index */ "./client/actions/index.js");
+
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 
 var initialState = {
-  currentWord: '',
-  expected: '',
+  currentWord: {},
+  currentBlock: '',
+  blockIndex: 0,
+  currentInput: [],
   score: 0
 };
 
@@ -589,26 +672,31 @@ var reducer = function reducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _actions_index__WEBPACK_IMPORTED_MODULE_0__.SET_CURRENT_WORD:
-      return {
-        currentWord: action.word,
-        expected: state.expected,
-        score: state.score
-      };
+    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_CURRENT_WORD:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentWord: action.word
+      });
 
-    case _actions_index__WEBPACK_IMPORTED_MODULE_0__.SET_EXPECTED:
-      return {
-        currentWord: state.currentWord,
-        expected: action["char"],
-        score: state.score
-      };
+    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_CURRENT_BLOCK:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentBlock: action["char"]
+      });
 
-    case _actions_index__WEBPACK_IMPORTED_MODULE_0__.ADD_SCORE:
-      return {
-        currentWord: state.currentWord,
-        expected: state.expected,
+    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_BLOCK_INDEX:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        blockIndex: action.index,
+        currentBlock: state.currentWord.hangul.charAt(action.index)
+      });
+
+    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_CURRENT_INPUT:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        currentInput: action.array
+      });
+
+    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.ADD_SCORE:
+      return _objectSpread(_objectSpread({}, state), {}, {
         score: state.score += 1
-      };
+      });
 
     default:
       return state;
@@ -686,12 +774,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "consonantsArr": () => (/* binding */ consonantsArr),
 /* harmony export */   "vowelsArr": () => (/* binding */ vowelsArr),
-/* harmony export */   "keyboardLower": () => (/* binding */ keyboardLower),
-/* harmony export */   "keyboardUpper": () => (/* binding */ keyboardUpper),
 /* harmony export */   "vowelShort": () => (/* binding */ vowelShort),
 /* harmony export */   "vowelTall": () => (/* binding */ vowelTall),
+/* harmony export */   "keyboardLower": () => (/* binding */ keyboardLower),
+/* harmony export */   "keyboardUpper": () => (/* binding */ keyboardUpper),
 /* harmony export */   "wordArray": () => (/* binding */ wordArray),
 /* harmony export */   "checkInput": () => (/* binding */ checkInput),
+/* harmony export */   "compareBlock": () => (/* binding */ compareBlock),
 /* harmony export */   "randomWord": () => (/* binding */ randomWord),
 /* harmony export */   "charType": () => (/* binding */ charType),
 /* harmony export */   "vowelType": () => (/* binding */ vowelType),
@@ -702,10 +791,10 @@ var Hangul = __webpack_require__(/*! hangul-js */ "./node_modules/hangul-js/hang
 
 var consonantsArr = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'];
 var vowelsArr = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'];
-var keyboardLower = ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block'];
-var keyboardUpper = ['ㅃ', 'ㅉ', 'ㄸ', 'ㄲ', 'ㅆ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅒ', 'ㅖ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block'];
 var vowelShort = ['ㅏ', 'ㅑ', 'ㅐ', 'ㅒ', 'ㅓ', 'ㅕ', 'ㅔ', 'ㅖ', 'ㅣ'];
 var vowelTall = ['ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ'];
+var keyboardLower = ['ㅂ', 'ㅈ', 'ㄷ', 'ㄱ', 'ㅅ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅐ', 'ㅔ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block'];
+var keyboardUpper = ['ㅃ', 'ㅉ', 'ㄸ', 'ㄲ', 'ㅆ', 'ㅛ', 'ㅕ', 'ㅑ', 'ㅒ', 'ㅖ', '', 'ㅁ', 'ㄴ', 'ㅇ', 'ㄹ', 'ㅎ', 'ㅗ', 'ㅓ', 'ㅏ', 'ㅣ', '', 'shift', 'ㅋ', 'ㅌ', 'ㅊ', 'ㅠ', 'ㅜ', 'ㅡ', 'ㅍ', 'undo', 'complete block'];
 var wordArray = [{
   english: 'yes',
   romanized: 'ne',
@@ -784,6 +873,14 @@ var checkConsonant = function checkConsonant(_char2) {
   } else {
     return false;
   }
+};
+
+var compareBlock = function compareBlock(input, compare) {
+  if (assemble(input) === compare) {
+    return true;
+  } else {
+    return false;
+  }
 }; // const [block, setBlock] = useState([])
 // VALID CHARACTER CHECKS
 // check if the first is consonant
@@ -795,7 +892,6 @@ var checkConsonant = function checkConsonant(_char2) {
 // check if the first vowel is short or tall
 // check if the block contains a double vowel
 // check if the block contains a double consonant after vowels
-
 
 var randomWord = function randomWord() {
   return wordArray[Math.floor(Math.random() * wordArray.length)];
