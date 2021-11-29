@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
-import { generateWord } from '../../utils'
+const Block = (props) => {
+  const { value, index } = props
+  const [blockColor, setBlockColor] = useState('white')
+  const gameState = useSelector(globalState => globalState.game)
 
-const Block = () => {
-  const [blockArr, setBlockArr] = useState([])
+  const checkStyle = () => {
+    if (gameState.blockIndex >= index) {
+      gameState.blockIndex === index ? setBlockColor('yellow') : setBlockColor('green')
+    } else {
+      setBlockColor('white')
+    }
+  }
+
+  useEffect(() => {
+    checkStyle()
+  }, [gameState.blockIndex])
 
   return (
-    <div className='block'>
-      
-    </div>
+    <div className='block' key={index} style={{color: blockColor}}>{value}</div>
   )
 }
 

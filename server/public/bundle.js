@@ -419,6 +419,61 @@ var Error404 = function Error404(props) {
 
 /***/ }),
 
+/***/ "./client/components/Gameboard/Block.jsx":
+/*!***********************************************!*\
+  !*** ./client/components/Gameboard/Block.jsx ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+var Block = function Block(props) {
+  var value = props.value,
+      index = props.index;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)('white'),
+      _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__.default)(_useState, 2),
+      blockColor = _useState2[0],
+      setBlockColor = _useState2[1];
+
+  var gameState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (globalState) {
+    return globalState.game;
+  });
+
+  var checkStyle = function checkStyle() {
+    if (gameState.blockIndex >= index) {
+      gameState.blockIndex === index ? setBlockColor('yellow') : setBlockColor('green');
+    } else {
+      setBlockColor('white');
+    }
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    checkStyle();
+  }, [gameState.blockIndex]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    className: "block",
+    key: index,
+    style: {
+      color: blockColor
+    }
+  }, value);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Block);
+
+/***/ }),
+
 /***/ "./client/components/Gameboard/Gameboard.jsx":
 /*!***************************************************!*\
   !*** ./client/components/Gameboard/Gameboard.jsx ***!
@@ -434,6 +489,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions */ "./client/actions/index.js");
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils */ "./client/utils.js");
+/* harmony import */ var _Block__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Block */ "./client/components/Gameboard/Block.jsx");
+
 
 
 
@@ -454,10 +511,11 @@ var Gameboard = function Gameboard() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "word"
   }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.stringToArray)(String(gameState.currentWord.hangul)).map(function (_char, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-      className: "block",
-      key: i
-    }, _char);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Block__WEBPACK_IMPORTED_MODULE_4__.default, {
+      key: i,
+      index: i,
+      value: _char
+    });
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "current"
   }, gameState.currentInput));
@@ -567,16 +625,15 @@ var Key = function Key(props) {
         if ((0,_utils__WEBPACK_IMPORTED_MODULE_4__.compareBlock)(gameState.currentInput, gameState.currentBlock)) {
           if (gameState.currentWord.hangul.length === gameState.blockIndex + 1) {
             // Word is complete
-            // const newArr = wordArray.filter(e => { return e !== gameState.currentWord })
-            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setNewWord)((0,_utils__WEBPACK_IMPORTED_MODULE_4__.randomWord)())); // Give user feedback that they were right -- set block to green
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setNewWord)((0,_utils__WEBPACK_IMPORTED_MODULE_4__.randomWord)()));
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.addScore)());
           } else {
             // Word is incomplete
-            console.log('correct');
             dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)([]));
             dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1));
           }
         } else {
-          console.log('wrong'); // Give user feedback that they were wrong -- set block to red and fade back to green
+          console.log('wrong');
         }
 
         break;

@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setBlockIndex, setCurrentWord } from '../../actions'
 import { randomWord, stringToArray } from '../../utils'
 
+import Block from './Block'
+
 const Gameboard = () => {
   const gameState = useSelector(globalState => globalState.game)
   const dispatch = useDispatch()
@@ -16,11 +18,9 @@ const Gameboard = () => {
 
   return (
     <div className='gameboard-base'>
-      {/* <div className='word'>{gameState.currentWord.hangul}</div> */}
-      {/* <div className='word'>{stringToArray(String(gameState.currentWord.hangul))}</div> */}
       <div className='word'>{
         stringToArray(String(gameState.currentWord.hangul)).map((char, i) => (
-          <div className='block' key={i}>{char}</div>
+          <Block key={i} index={i} value={char} />
         ))
       }</div>
       <div className='current'>{ gameState.currentInput }</div>
