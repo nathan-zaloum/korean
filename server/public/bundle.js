@@ -301,34 +301,28 @@ function _unsupportedIterableToArray(o, minLen) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "SET_CURRENT_WORD": () => (/* binding */ SET_CURRENT_WORD),
-/* harmony export */   "SET_CURRENT_BLOCK": () => (/* binding */ SET_CURRENT_BLOCK),
 /* harmony export */   "SET_BLOCK_INDEX": () => (/* binding */ SET_BLOCK_INDEX),
 /* harmony export */   "SET_CURRENT_INPUT": () => (/* binding */ SET_CURRENT_INPUT),
 /* harmony export */   "ADD_SCORE": () => (/* binding */ ADD_SCORE),
+/* harmony export */   "SET_NEW_WORD": () => (/* binding */ SET_NEW_WORD),
 /* harmony export */   "SHIFT": () => (/* binding */ SHIFT),
 /* harmony export */   "setCurrentWord": () => (/* binding */ setCurrentWord),
-/* harmony export */   "setCurrentBlock": () => (/* binding */ setCurrentBlock),
 /* harmony export */   "setBlockIndex": () => (/* binding */ setBlockIndex),
 /* harmony export */   "setCurrentInput": () => (/* binding */ setCurrentInput),
 /* harmony export */   "addScore": () => (/* binding */ addScore),
+/* harmony export */   "setNewWord": () => (/* binding */ setNewWord),
 /* harmony export */   "shift": () => (/* binding */ shift)
 /* harmony export */ });
 var SET_CURRENT_WORD = 'SET_CURRENT_WORD';
-var SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 var SET_BLOCK_INDEX = 'SET_BLOCK_INDEX';
 var SET_CURRENT_INPUT = 'SET_CURRENT_INPUT';
 var ADD_SCORE = 'ADD_SCORE';
+var SET_NEW_WORD = 'SET_NEW_WORD';
 var SHIFT = 'SHIFT';
 var setCurrentWord = function setCurrentWord(word) {
   return {
     type: SET_CURRENT_WORD,
     word: word
-  };
-};
-var setCurrentBlock = function setCurrentBlock(_char) {
-  return {
-    type: SET_CURRENT_BLOCK,
-    "char": _char
   };
 };
 var setBlockIndex = function setBlockIndex(index) {
@@ -346,6 +340,12 @@ var setCurrentInput = function setCurrentInput(array) {
 var addScore = function addScore() {
   return {
     type: ADD_SCORE
+  };
+};
+var setNewWord = function setNewWord(word) {
+  return {
+    type: SET_NEW_WORD,
+    word: word
   };
 };
 var shift = function shift() {
@@ -447,13 +447,18 @@ var Gameboard = function Gameboard() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var newWord = (0,_utils__WEBPACK_IMPORTED_MODULE_3__.randomWord)();
     dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.setCurrentWord)(newWord));
-    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.setCurrentBlock)(newWord.hangul.charAt(0)));
+    dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_2__.setBlockIndex)(0));
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "gameboard-base"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "word"
-  }, gameState.currentWord.hangul), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.stringToArray)(String(gameState.currentWord.hangul)).map(function (_char, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      className: "block",
+      key: i
+    }, _char);
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "current"
   }, gameState.currentInput));
 };
@@ -560,11 +565,18 @@ var Key = function Key(props) {
 
       case 'complete block':
         if ((0,_utils__WEBPACK_IMPORTED_MODULE_4__.compareBlock)(gameState.currentInput, gameState.currentBlock)) {
-          console.log('correct');
-          dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)([]));
-          dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1)); // Give user feedback that they were right
+          if (gameState.currentWord.hangul.length === gameState.blockIndex + 1) {
+            // Word is complete
+            // const newArr = wordArray.filter(e => { return e !== gameState.currentWord })
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setNewWord)((0,_utils__WEBPACK_IMPORTED_MODULE_4__.randomWord)())); // Give user feedback that they were right -- set block to green
+          } else {
+            // Word is incomplete
+            console.log('correct');
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setCurrentInput)([]));
+            dispatch((0,_actions__WEBPACK_IMPORTED_MODULE_3__.setBlockIndex)(gameState.blockIndex += 1));
+          }
         } else {
-          console.log('wrong'); // Give user feedback that they were wrong
+          console.log('wrong'); // Give user feedback that they were wrong -- set block to red and fade back to green
         }
 
         break;
@@ -677,11 +689,6 @@ var reducer = function reducer() {
         currentWord: action.word
       });
 
-    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_CURRENT_BLOCK:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        currentBlock: action["char"]
-      });
-
     case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_BLOCK_INDEX:
       return _objectSpread(_objectSpread({}, state), {}, {
         blockIndex: action.index,
@@ -696,6 +703,13 @@ var reducer = function reducer() {
     case _actions_index__WEBPACK_IMPORTED_MODULE_1__.ADD_SCORE:
       return _objectSpread(_objectSpread({}, state), {}, {
         score: state.score += 1
+      });
+
+    case _actions_index__WEBPACK_IMPORTED_MODULE_1__.SET_NEW_WORD:
+      return _objectSpread(_objectSpread({}, initialState), {}, {
+        currentWord: action.word,
+        currentBlock: action.word.hangul.charAt(0),
+        currentInput: []
       });
 
     default:
@@ -784,6 +798,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "randomWord": () => (/* binding */ randomWord),
 /* harmony export */   "charType": () => (/* binding */ charType),
 /* harmony export */   "vowelType": () => (/* binding */ vowelType),
+/* harmony export */   "stringToArray": () => (/* binding */ stringToArray),
 /* harmony export */   "disassemble": () => (/* binding */ disassemble),
 /* harmony export */   "assemble": () => (/* binding */ assemble)
 /* harmony export */ });
@@ -909,6 +924,9 @@ var vowelType = function vowelType(_char4) {
   } else {
     return 'tall';
   }
+};
+var stringToArray = function stringToArray(str) {
+  return str.split('');
 };
 var disassemble = function disassemble(input) {
   return Hangul.disassemble(input);

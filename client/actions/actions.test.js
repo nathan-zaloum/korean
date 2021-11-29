@@ -1,4 +1,4 @@
-import { setCurrentWord, setExpected, addScore, shift } from './index'
+import { setCurrentWord, setBlockIndex, setCurrentInput, addScore, setNewWord, shift } from './index'
 
 describe('Action tests', () => {
   test('setCurrentWord action creator works', () => {
@@ -9,12 +9,20 @@ describe('Action tests', () => {
     const actual = setCurrentWord('test')
     expect(actual).toEqual(expected)
   })
-  test('setExpected action creator works', () => {
+  test('setBlockIndex action creator works', () => {
     const expected = {
-      type: 'SET_EXPECTED',
-      char: 'test'
+      type: 'SET_BLOCK_INDEX',
+      index: 1
     }
-    const actual = setExpected('test')
+    const actual = setBlockIndex(1)
+    expect(actual).toEqual(expected)
+  })
+  test('setCurrentInput action creator works', () => {
+    const expected = {
+      type: 'SET_CURRENT_INPUT',
+      array: []
+    }
+    const actual = setCurrentInput([])
     expect(actual).toEqual(expected)
   })
   test('addScore action creator works', () => {
@@ -22,6 +30,14 @@ describe('Action tests', () => {
       type: 'ADD_SCORE',
     }
     const actual = addScore()
+    expect(actual).toEqual(expected)
+  })
+  test('setNewWord action creator works', () => {
+    const expected = {
+      type: 'SET_NEW_WORD',
+      word: 'Test'
+    }
+    const actual = setNewWord('Test')
     expect(actual).toEqual(expected)
   })
   test('shift action creator works', () => {

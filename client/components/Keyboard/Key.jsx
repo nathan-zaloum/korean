@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { shift, setCurrentInput, setBlockIndex } from '../../actions'
-import { compareBlock } from '../../utils'
+import { shift, setCurrentInput, setBlockIndex, setNewWord } from '../../actions'
+import { compareBlock, randomWord, wordArray } from '../../utils'
 
 const Key = (props) => {
   const { value } = props
@@ -27,13 +27,20 @@ const Key = (props) => {
       case 'shift': dispatch(shift()); break
       case 'undo': let newArr = gameState.currentInput; newArr.splice(-1); dispatch(setCurrentInput(newArr)); break
       case 'complete block': if (compareBlock(gameState.currentInput, gameState.currentBlock)) {
-        console.log('correct')
-        dispatch(setCurrentInput([]))
-        dispatch(setBlockIndex(gameState.blockIndex += 1))
-        // Give user feedback that they were right
+        if (gameState.currentWord.hangul.length === gameState.blockIndex + 1) {
+          // Word is complete
+          // const newArr = wordArray.filter(e => { return e !== gameState.currentWord })
+          dispatch(setNewWord(randomWord()))
+        // Give user feedback that they were right -- set block to green
+        } else {
+          // Word is incomplete
+          console.log('correct')
+          dispatch(setCurrentInput([]))
+          dispatch(setBlockIndex(gameState.blockIndex += 1))
+        }
       } else {
         console.log('wrong')
-        // Give user feedback that they were wrong
+        // Give user feedback that they were wrong -- set block to red and fade back to green
       } break
     }
 

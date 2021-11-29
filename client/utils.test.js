@@ -1,4 +1,4 @@
-import { wordArray, randomWord, charType, disassemble, assemble, vowelType } from './utils'
+import { wordArray, randomWord, charType, disassemble, assemble, vowelType, stringToArray } from './utils'
 
 describe('Character check tests', () => {
   test.todo('checks the first input character is a consonant')
@@ -42,6 +42,11 @@ describe('Utils.js function tests', () => {
     }
     expect(actual.short).toEqual(expected.short)
     expect(actual.tall).toEqual(actual.tall)
+  })
+  test('stringToArray converts a string into an array of individual characters', () => {
+    const expected = ['T', 'e', 's', 't']
+    const actual = stringToArray('Test')
+    expect(actual).toEqual(expected)
   })
   test('disassemble returns an array of individuals letters', () => {
     const expected = ['ㅇ', 'ㅏ', 'ㄴ', 'ㄴ', 'ㅕ', 'ㅇ', 'ㅎ', 'ㅏ', 'ㅅ', 'ㅔ', 'ㅇ', 'ㅛ']

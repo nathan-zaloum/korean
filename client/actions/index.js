@@ -1,21 +1,14 @@
 export const SET_CURRENT_WORD = 'SET_CURRENT_WORD'
-export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK'
 export const SET_BLOCK_INDEX = 'SET_BLOCK_INDEX'
 export const SET_CURRENT_INPUT = 'SET_CURRENT_INPUT'
 export const ADD_SCORE = 'ADD_SCORE'
+export const SET_NEW_WORD = 'SET_NEW_WORD'
 export const SHIFT = 'SHIFT'
 
 export const setCurrentWord = (word) => {
   return {
     type: SET_CURRENT_WORD,
     word
-  }
-}
-
-export const setCurrentBlock = (char) => {
-  return {
-    type: SET_CURRENT_BLOCK,
-    char
   }
 }
 
@@ -36,6 +29,13 @@ export const setCurrentInput = (array) => {
 export const addScore = () => {
   return {
     type: ADD_SCORE
+  }
+}
+
+export const setNewWord = (word) => {
+  return {
+    type: SET_NEW_WORD,
+    word
   }
 }
 

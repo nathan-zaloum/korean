@@ -4,62 +4,112 @@ import shiftReducer from './shift'
 describe('Reducer tests', () => {
   test('Ensure SET_CURRENT_WORD sets the current word in state', () => {
     const expected = {
-      currentWord: 'test new',
-      expected: 'test default',
+      currentWord: { english: 'Test', romanized: 'Test', hangul: 'Test' },
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: [],
       score: 0
     }
     const initialState = {
-      currentWord: 'test default',
-      expected: 'test default',
+      currentWord: {},
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: [],
       score: 0
     }
     const action = {
       type: 'SET_CURRENT_WORD',
-      word: 'test new'
+      word: { english: 'Test', romanized: 'Test', hangul: 'Test' }
     }
     const actual = gameReducer(initialState, action)
-    expect(actual.currentWord).toEqual(expected.currentWord)
-    expect(actual.expected).toEqual(expected.expected)
-    expect(actual.score).toEqual(expected.score)
+    expect(actual).toEqual(expected)
   })
-  test('Ensure SET_EXPECTED sets the expected word in state', () => {
+  test('Ensure SET_BLOCK_INDEX sets the current block index in state', () => {
     const expected = {
-      currentWord: 'test default',
-      expected: 'test new',
+      currentWord: { english: 'Test', romanized: 'Test', hangul: 'Test' },
+      currentBlock: 'e',
+      blockIndex: 1,
+      currentInput: [],
       score: 0
     }
     const initialState = {
-      currentWord: 'test default',
-      expected: 'test default',
+      currentWord: { english: 'Test', romanized: 'Test', hangul: 'Test' },
+      currentBlock: 'T',
+      blockIndex: 0,
+      currentInput: [],
       score: 0
     }
     const action = {
-      type: 'SET_EXPECTED',
-      char: 'test new'
+      type: 'SET_BLOCK_INDEX',
+      index: 1
     }
     const actual = gameReducer(initialState, action)
-    expect(actual.currentWord).toEqual(expected.currentWord)
-    expect(actual.expected).toEqual(expected.expected)
-    expect(actual.score).toEqual(expected.score)
+    expect(actual).toEqual(expected)
+  })
+  test('Ensure SET_CURRENT_INPUT sets the current block index in state', () => {
+    const expected = {
+      currentWord: {},
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: ['Test'],
+      score: 0
+    }
+    const initialState = {
+      currentWord: {},
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: [],
+      score: 0
+    }
+    const action = {
+      type: 'SET_CURRENT_INPUT',
+      array: ['Test']
+    }
+    const actual = gameReducer(initialState, action)
+    expect(actual).toEqual(expected)
   })
   test('Ensure ADD_SCORE adds one to the current state', () => {
     const expected = {
-      currentWord: 'test default',
-      expected: 'test default',
+      currentWord: {},
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: [],
       score: 1
     }
     const initialState = {
-      currentWord: 'test default',
-      expected: 'test default',
+      currentWord: {},
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: [],
       score: 0
     }
     const action = {
       type: 'ADD_SCORE'
     }
     const actual = gameReducer(initialState, action)
-    expect(actual.currentWord).toEqual(expected.currentWord)
-    expect(actual.expected).toEqual(expected.expected)
-    expect(actual.score).toEqual(expected.score)
+    expect(actual).toEqual(expected)
+  })
+  test('Ensure SET_NEW_WORD sets the current block index in state', () => {
+    const expected = {
+      currentWord: { english: 'Test Post', romanized: 'Test Post', hangul: 'Test Post' },
+      currentBlock: '',
+      blockIndex: 0,
+      currentInput: [],
+      score: 0
+    }
+    const initialState = {
+      currentWord: { english: 'Test Pre', romanized: 'Test Pre', hangul: 'Test Pre' },
+      currentBlock: 'Test',
+      blockIndex: 1,
+      currentInput: ['Test'],
+      score: 0
+    }
+    const action = {
+      type: 'SET_NEW_WORD',
+      word: { english: 'Test Post', romanized: 'Test Post', hangul: 'Test Post' }
+    }
+    const actual = gameReducer(initialState, action)
+    expect(actual).toEqual(expected)
   })
   test('Ensure SHIFT switches the state to its opposite', () => {
     const expected = true

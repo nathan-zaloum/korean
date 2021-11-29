@@ -93,6 +93,10 @@ export const vowelType = (char) => {
   }
 }
 
+export const stringToArray = (str) => {
+  return str.split('')
+}
+
 export const disassemble = (input) => {
   return Hangul.disassemble(input)
 }
