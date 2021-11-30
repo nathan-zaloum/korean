@@ -2,17 +2,17 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import Error404 from './Error404'
-import Gameboard from './Gameboard/Gameboard'
-import Keyboard from './Keyboard/Keyboard'
+import Home from './Home'
+import Game from './Gameboard/Game'
 
 const App = () => {
   return (
     <>
-        <Routes>
-          <Route path='*' element={<Error404 />} />
-          <Route exact path='/' element={<Gameboard />} />
-        </Routes>
-        <Keyboard />
+      <Routes>
+        <Route path='*' element={<Error404 />} />
+        <Route path='/' element={<Home />} />
+        <Route path='/game' element={<Game />} />
+      </Routes>
     </>
   )
 }

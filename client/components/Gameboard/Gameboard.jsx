@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { setBlockIndex, setCurrentWord } from '../../actions'
 import { randomWord, stringToArray, wordArray } from '../../utils'
@@ -26,6 +27,8 @@ const Gameboard = () => {
       }</div>
       <div className='current'>{ gameState.currentInput }</div>
       <div className='message'>{ messageState }</div>
+      <div className='score'>{ `Score: ${String(gameState.score)}` }</div>
+      <Link to='/'><button className='home'>Home</button></Link>
     </div>
   )
 }
