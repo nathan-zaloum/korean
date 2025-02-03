@@ -1,9 +1,9 @@
-@import './mixins.scss';
-@import './variables.scss';
-@import './blocks.css';
-@import './keyboard.scss';
-@import './gameboard.scss';
-@import './header.scss';
+@use './mixins.scss';
+@use './variables.scss';
+@use './blocks.css';
+@use './keyboard.scss';
+@use './gameboard.scss';
+@use './header.scss';
 
 html, body { margin: 0; padding: 0; }
 
